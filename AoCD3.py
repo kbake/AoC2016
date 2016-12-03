@@ -1,6 +1,6 @@
 # Advent of Code, D3_2016
 
-input_vals = """  775  785  361
+INPUT_VALS = """  775  785  361
   622  375  125
   297  839  375
   245   38  891
@@ -1915,7 +1915,8 @@ input_vals = """  775  785  361
   696  302  809
   665  375  287"""
 
-def isValid(values):
+def is_valid(values):
+    """Checks if we have a valid triangle"""
     val1 = int(values[0])
     val2 = int(values[1])
     val3 = int(values[2])
@@ -1928,22 +1929,30 @@ def isValid(values):
         return False
     return True
 
-count = 0
-input_rows = input_vals.split('\n')
-for row in input_rows:
-    input_nums = row.split()
-    if isValid(input_nums):
-        count += 1
-print(str(count) + " (rows)")
-
-count = 0
-bigun = []
-for row in input_rows:
-    input_nums = row.split()
-    bigun.append(input_nums)
-totes = len(bigun)
-for i in range(3):
-    for j in range(0, totes, 3):
-        if isValid([bigun[j][i], bigun[j+1][i], bigun[j+2][i]]):
+def figure_valid_rows(input_vals):
+    """Figures how many valid triangles we have via looking at rows"""
+    count = 0
+    input_rows = input_vals.split('\n')
+    for row in input_rows:
+        input_nums = row.split()
+        if is_valid(input_nums):
             count += 1
-print(str(count) + " (cols)")
+    return count
+
+def figure_valid_cols(input_vals):
+    """Figures how many valid triangles we have via looking at cols"""
+    count = 0
+    bigun = []
+    input_rows = input_vals.split('\n')
+    for row in input_rows:
+        input_nums = row.split()
+        bigun.append(input_nums)
+    totes = len(bigun)
+    for i in range(3):
+        for j in range(0, totes, 3):
+            if is_valid([bigun[j][i], bigun[j+1][i], bigun[j+2][i]]):
+                count += 1
+    return count
+
+print(str(figure_valid_rows(INPUT_VALS)) + " (rows)")
+print(str(figure_valid_cols(INPUT_VALS)) + " (cols)")
