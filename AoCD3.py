@@ -1933,12 +1933,7 @@ def isValid(values):
 count = 0
 input_rows = input_vals.split('\n')
 for row in input_rows:
-    input_nums = row.split(' ')
-    try:
-        while(True):
-            input_nums.remove('')
-    except:
-        count = count
+    input_nums = row.split()
     if isValid(input_nums):
         count += 1
 print(str(count) + " (rows)")
@@ -1946,12 +1941,7 @@ print(str(count) + " (rows)")
 count = 0
 bigun = []
 for row in input_rows:
-    input_nums = row.split(' ')
-    try:
-        while(True):
-            input_nums.remove('')
-    except:
-        count = count
+    input_nums = row.split()
     bigun.append(input_nums)
 totes = len(bigun)
 for i in range(3):
