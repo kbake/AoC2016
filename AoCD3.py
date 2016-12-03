@@ -1915,8 +1915,6 @@ input_vals = """  775  785  361
   696  302  809
   665  375  287"""
 
-#input_vals = "  5  10  20\n"
-
 def isValid(values):
     val1 = int(values[0])
     val2 = int(values[1])
