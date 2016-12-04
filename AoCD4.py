@@ -957,14 +957,10 @@ def get_value_and_name(combined):
 
 def figure_name(hashed_name, shifts):
     real_name = ""
+    ord_a = ord('a')
     for chunk in hashed_name:
         for char in chunk:
-            for i in range(shifts):
-                temp = ord(char) + 1
-                if temp > 122:
-                    temp = 97
-                char = chr(temp)
-            real_name += char
+            real_name += chr(ord_a + ((ord(char) - ord_a + shifts) % 26))
         real_name += " "
     return real_name
 
