@@ -615,15 +615,19 @@ dqfriuqe"""
 # dvrsen
 # enarar"""
 
-input_split = INPUT.split('\n')
-final = ''
-for col in range(len(input_split[0])):
-    group = {}
-    for row in range(len(input_split)):
-        char = input_split[row][col]
-        if char in group:
-            group[char] += 1
-        else:
-            group[char] = 0
-    final += min(group, key=group.get)
-print(final)
+def figure_code(puzzle_input, func_to_apply):
+    input_split = INPUT.split('\n')
+    final = ''
+    for col in range(len(input_split[0])):
+        group = {}
+        for text in input_split:
+            char = text[col]
+            if char in group:
+                group[char] += 1
+            else:
+                group[char] = 0
+        final += func_to_apply(group, key=group.get)
+    return final
+
+print(figure_code(INPUT, max))
+print(figure_code(INPUT, min))
