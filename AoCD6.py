@@ -616,7 +616,7 @@ dqfriuqe"""
 # enarar"""
 
 def figure_code(puzzle_input, func_to_apply):
-    input_split = INPUT.split('\n')
+    input_split = puzzle_input.split('\n')
     final = ''
     for col in range(len(input_split[0])):
         group = {}
