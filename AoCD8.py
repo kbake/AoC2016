@@ -241,8 +241,8 @@ def rotate_pixels(params):
     else:
         rotate_row(pos, inc)
 
-def read_commands(INPUT):
-    for command in INPUT.split('\n'):
+def read_commands(commands):
+    for command in commands.split('\n'):
         split_command = command.split()
         if split_command[0] == "rotate":
             rotate_pixels(split_command[1:])
