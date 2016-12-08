@@ -234,7 +234,6 @@ def rotate_row(row, increment):
 
 def rotate_pixels(params):
     focus = params[0]
-    print(params[1:])
     pos = int(params[1:][0].split('=')[1])
     inc = int(params[1:][2])
     if focus == "column":
@@ -242,14 +241,13 @@ def rotate_pixels(params):
     else:
         rotate_row(pos, inc)
 
-for command in INPUT.split('\n'):
-    # print(command)
-    split_command = command.split()
-    # print(split_command)
-    if split_command[0] == "rotate":
-        rotate_pixels(split_command[1:])
-    else:
-        create_rect(split_command[1])
+def read_commands(INPUT):
+    for command in INPUT.split('\n'):
+        split_command = command.split()
+        if split_command[0] == "rotate":
+            rotate_pixels(split_command[1:])
+        else:
+            create_rect(split_command[1])
 
 def pretty_print_screen(focus_screen):
     for row in focus_screen:
@@ -260,7 +258,6 @@ def pretty_print_screen(focus_screen):
             else:
                 to_print += '.'
         print(to_print)
-pretty_print_screen(screen)
 
 def get_num_on(focus_screen):
     total = 0
@@ -269,4 +266,7 @@ def get_num_on(focus_screen):
             if is_on:
                 total += 1
     return total
+
+read_commands(INPUT)
+pretty_print_screen(screen)
 print(get_num_on(screen))
