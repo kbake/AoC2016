@@ -293,9 +293,9 @@ def create_bots(instructions):
             low_command = split_instruction[5] + split_instruction[6]
             high_command = split_instruction[10] + split_instruction[11]
             if low_command not in bots.keys():
-                bots[low_command] = Bot(low_command, low_command[:5] == "output")
+                bots[low_command] = Bot(low_command, low_command[:6] == "output")
             if high_command not in bots.keys():
-                bots[high_command] = Bot(high_command, high_command[:5] == "output")
+                bots[high_command] = Bot(high_command, high_command[:6] == "output")
             if bot_id in bots.keys():
                 bots[bot_id].set_low_command(low_command)
                 bots[bot_id].set_high_command(high_command)
@@ -317,11 +317,6 @@ def run_through_comparables(comparables, bots):
     for comp in comparables:
         low = comp.enact_command(False)
         high = comp.enact_command(True)
-        print(comp.get_id())
-        print(comp.vals)
-        print(low)
-        print(high)
-        print()
         bots[low[0]].add_value(low[1])
         bots[high[0]].add_value(high[1])
     return bots
@@ -329,7 +324,6 @@ def run_through_comparables(comparables, bots):
 def do_the_thing(input, look_for):
     bots = create_bots(input)
     comparables = [b[1] for b in bots.items() if b[1].has_comparables()]
-    # outputs = [o[1] for o in bots.items() if o[1].is_output]
     found_bot = focus_bot(comparables, look_for)
     while found_bot is None and len(comparables) > 0:
         bots = run_through_comparables(comparables, bots)
@@ -339,3 +333,18 @@ def do_the_thing(input, look_for):
 
 # print(do_the_thing(INPUT, (2, 5)))
 print(do_the_thing(INPUT, (61, 17)))
+
+def get_output(input):
+    bots = create_bots(input)
+    comparables = [b[1] for b in bots.items() if b[1].has_comparables()]
+    while len(comparables) > 0:
+        bots = run_through_comparables(comparables, bots)
+        comparables = [b[1] for b in bots.items() if b[1].has_comparables()]
+    outputs = [o[1].vals[0] for o in bots.items() if o[1].is_output and o[0][6:] in ('0', '1', '2')]
+    print(outputs)
+    total = outputs[0]
+    for output in outputs[1:]:
+        total *= output
+    return total
+
+print(get_output(INPUT))
