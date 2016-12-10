@@ -321,8 +321,8 @@ def run_through_comparables(comparables, bots):
         bots[high[0]].add_value(high[1])
     return bots
 
-def do_the_thing(input, look_for):
-    bots = create_bots(input)
+def do_the_thing(input_text, look_for):
+    bots = create_bots(input_text)
     comparables = [b[1] for b in bots.items() if b[1].has_comparables()]
     found_bot = focus_bot(comparables, look_for)
     while found_bot is None and len(comparables) > 0:
@@ -331,20 +331,18 @@ def do_the_thing(input, look_for):
         found_bot = focus_bot(comparables, look_for)
     return found_bot.get_id() if found_bot is not None else -1
 
-# print(do_the_thing(INPUT, (2, 5)))
-print(do_the_thing(INPUT, (61, 17)))
-
-def get_output(input):
-    bots = create_bots(input)
+def get_output(input_text):
+    bots = create_bots(input_text)
     comparables = [b[1] for b in bots.items() if b[1].has_comparables()]
     while len(comparables) > 0:
         bots = run_through_comparables(comparables, bots)
         comparables = [b[1] for b in bots.items() if b[1].has_comparables()]
     outputs = [o[1].vals[0] for o in bots.items() if o[1].is_output and o[0][6:] in ('0', '1', '2')]
-    print(outputs)
     total = outputs[0]
     for output in outputs[1:]:
         total *= output
     return total
 
+# print(do_the_thing(INPUT, (2, 5)))
+print(do_the_thing(INPUT, (61, 17)))
 print(get_output(INPUT))
