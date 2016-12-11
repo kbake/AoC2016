@@ -69,12 +69,9 @@ def figure_least_steps(layout):
             cur_floor += 1
         else:
             to_move = min(to_move_down)
-            print("move down: " + str(to_move))
+            print("move down: " + str(to_move[0]))
             layout[cur_floor-1].append(to_move[0])
             layout[cur_floor].remove(to_move[0])
-            if to_move[1] is not None:
-                layout[cur_floor-1].append(to_move[1])
-                layout[cur_floor].remove(to_move[1])
             cur_floor -= 1
             # print(to_move_down)
         steps += 1
